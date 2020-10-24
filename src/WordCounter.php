@@ -9,14 +9,18 @@ final class WordCounter
     /**
      * @param string $text
      * @param int $topCount
-     *
      * @param bool $ignoreCase
+     *
      * @return array<string, int>
      */
     public function getTopWords(string $text, int $topCount, bool $ignoreCase): array
     {
-        $words = \preg_split( '/\s+/', $text);
-        if($ignoreCase) {
+        if ('' === $text) {
+            return [];
+        }
+
+        $words = \mb_split('\s+', $text);
+        if ($ignoreCase) {
             $words = \array_map('mb_strtolower', $words);
         }
         $wordCounts = \array_count_values($words);

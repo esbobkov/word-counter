@@ -47,14 +47,17 @@ final class WordCounterTest extends TestCase
 		В этот вечер...
 EOD;
 
-        $wordCounter = new WordCounter();
-
         self::assertSame([
             'а' => 8,
             'он' => 8,
             'и' => 6,
             'что' => 5,
             'ты' => 5,
-        ],$wordCounter->getTopWords($text, 5, true));
+        ], (new WordCounter())->getTopWords($text, 5, true));
+    }
+
+    public function testGetTopWordsOnEmptyString(): void
+    {
+        self::assertSame([], (new WordCounter())->getTopWords('', 5, true));
     }
 }
